@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}hotels{% endblock title %}</title>    
+    
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="{% static 'js/app.js' %}"></script>
+  </head>
+  <body>
+      {% comment %} navbar {% endcomment %}
+    {% include 'frontend/common/nav.html'%}
+   
+    <section>
+        {% include 'hims_common_templates/messages.html'%}
+        <h5>hotel and retreat</h5>
+        <p class="para1">Travel more conviniently with hotels</p>
+        <a class="btn" href="{% url 'view-room' %}">Book now</a>
+    </section>
+    <footer id="footer">hotellia All rights reserved &copy;2021</footer>
+  </body>
+</html>

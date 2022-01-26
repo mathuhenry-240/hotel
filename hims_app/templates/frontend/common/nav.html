@@ -1,0 +1,28 @@
+<nav>
+    <div class="logo">hotels</div>
+
+    <ul class="nav-items">
+      <li>
+        <a href="{% url 'home'%}">Home</a>
+      </li>
+      <li>
+        <a href="#">Destination</a>
+      </li>
+      <li>
+        <a href="#">Articles</a>
+      </li>
+      <li>
+        <a href="#">Contact us</a>
+      </li>
+      <li>
+        <a href="{% url 'admin-login' %}">Admin</a>
+      </li>
+    </ul>
+
+    {% comment %} <div class="book">Book now</div> {% endcomment %}
+    <div class="bagger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </nav>

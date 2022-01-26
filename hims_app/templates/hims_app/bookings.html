@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Bookings
+{% endblock %}
+
+{% block content %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Bookings</h1>
+      </div>
+
+<div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">
+                Book
+            </button>
+
+            {% include 'hims_common_templates/messages.html' %}
+            <!-- create course Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Book Form</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="room_Name">Room Name:</label>
+                                    <input type="text" class="form-control" id="room_Name" name="room_Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="room_available_for">room Available For:</label>
+                                    <input type="number" class="form-control" id="room_available_for"
+                                           name="room_available_for">
+                                </div>
+                                <div class="form-group">
+                                    <label for="room_type">room type:</label>
+                                    <input type="text" class="form-control" id="room_type"
+                                           name="room_type">
+                                </div>
+                                <div class="form-group">
+                                    <label for="room_charges">Room charges:</label>
+                                    <input type="number" class="form-control" id="room_charges" name="room_charges">
+                                </div>
+                                <button type="submit" class="btn btn-primary">book</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">customer No</th>
+                    <th scope="col">customer Name</th>
+                    <th scope="col">Room Name</th>
+                    <th scope="col">room Available For</th>
+                    <th scope="col">Room type</th>
+                    <th scope="col">Booking Active</th>
+                    <th scope="col" >Manage</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for booking in bookings %}
+                    <tr>
+                        <th scope="row">{{ booking.id }}</th>
+                        <td>{{ booking.customer.cust_no }}</td>
+                        <td>
+                            {{ booking.customer.First_Name }}
+                            {{ booking.customer.Last_Name }}
+                            {{ booking.customer.Surname }}
+                        </td>
+                        <td>{{ booking.room.room_name }}</td>
+                        <td>{{ booking.room.room_available_for }}</td>
+                        <td>{{ booking.room.room_type }}</td>
+                        <td>{{ booking.room.IsActive }}</td>
+                        <td>
+                            <button data-toggle="modal" data-target="#update{{ room.id }}"
+                                    class="btn btn-sm btn-success">Update
+                            </button>
+                            <button data-toggle="modal" data-target="#delete{{ room.id }}"
+                                    class="btn btn-sm btn-warning">Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- update room Modal -->
+                    <div class="modal fade" id="update{{ room.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="updateModal"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="updateModal">Update room Form</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="#" method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="room_Name">Room Name:</label>
+                                            <input type="text" class="form-control" id="room_Name" name="room_Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="room_available_for">room Available For:</label>
+                                            <input type="number" class="form-control" id="room_available_for"
+                                                   name="room_available_for">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="room_type">room type:</label>
+                                            <input type="text" class="form-control" id="room_type"
+                                                   name="room_type">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="room_charges">Room charges:</label>
+                                            <input type="number" class="form-control" id="room_charges" name="room_charges">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- delete course Modal -->
+                    <div class="modal fade" id="delete{{ room.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="deleteModal"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModal">Confirm Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="#" method="post">
+                                        {% csrf_token %}
+                                        <p>Are you sure you want to delete "{{ room.room_Name}}" ?</p>
+                                        <button type="submit" class="btn btn-danger">Yes</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+{% endblock %}
